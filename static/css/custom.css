@@ -1,0 +1,42 @@
+@media only screen and (min-width: 599px) {
+  #root-container {
+  	width: 60%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #root-container {
+  	width: 100%;
+  }
+}
+
+#root-container {
+	margin: 20px auto;
+}
+
+.centered-content {
+	text-align: center;
+}
+
+.border {
+	background: #F1F1F1;
+	border: 1px solid #E1E1E1;
+	border-radius: 4px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.margin-y-5px {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.save-button {
+	margin-top: 15px;
+}
+
+.u-tmp {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
