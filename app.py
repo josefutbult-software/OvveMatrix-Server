@@ -5,6 +5,7 @@ import json
 import os
 import time
 
+last_data = None
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
@@ -16,10 +17,12 @@ def index():
         state=get_state(),
         time="{:.1f}".format(get_time_since_pull()))
 
+
 @app.route("/data", methods=['POST', 'GET'])
 def pull_data():
     register_pull()
-    return get_state()
+    return last_data
+
 
 def get_state():
     with open(os.path.abspath(os.path.join(
@@ -27,21 +30,43 @@ def get_state():
     ) as file:
         return json.loads(file.read())
 
+
 def set_state(form):
+    global last_data
+    
     state = get_state()
-    for instance in [instance for instance in form if instance in state]:
-        state[instance] = form[instance]
+
+    try:
+        mode = form['mode']
+        if mode == 'text':
+            state['text']['text'] = form['text']
+            state['text']['color'] = form['color']
+            last_data = {'text': state['text']}
+
+        elif mode == 'waves':
+            state['waves']['color1'] = form['color1']
+            state['waves']['color2'] = form['color2']
+            last_data = {'waves': state['waves']}
+
+        else:
+            return
+    except:
+        return
+
+
 
     with open(os.path.abspath(os.path.join(
         os.path.dirname(__file__), 'persistant', 'state.json')), 
     "w") as file:
         file.write(json.dumps(state, sort_keys=True, indent=4))
 
+
 def register_pull():
     with open(os.path.abspath(os.path.join(
         os.path.dirname(__file__), 'persistant', 'last_pull.bin')), 
     "wb") as file:
         file.write(int(time.time() * 1000).to_bytes(64, 'big'))
+
 
 def get_time_since_pull():
     with open(os.path.abspath(os.path.join(
@@ -50,7 +75,10 @@ def get_time_since_pull():
         last_time = float(int.from_bytes(file.read(), 'big')) / 1000
         return time.time() - last_time
 
+
 if __name__ == "__main__":
+    last_data = {'text': get_state()['text']}
+
     if getpass.getuser() == "josef":
         app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
         app.run(host='0.0.0.0', port='8000', debug=True)

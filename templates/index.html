@@ -26,46 +26,55 @@
         <h1>Josefs Ovve</h1>
         <p>Här kan du välja vad som ska visas på Josefs Ovve!</p>
       </div>
+
       <div class="row u-full-width border">
-        <form class="container" name="color" method="post">
+        <form class="container" id="text" method="post">
+          <input type="hidden" name="mode", value="text">
           <div class="row centered-content">
-            <h3>Färg</h3>
+            <h3>Text</h3>
           </div>
           <div class="row">
             <div class="six columns centered-content">
-              <p class="margin-y-5px">Primär</p>
-              <input type="color" id="primary_color" name="primary_color" value="{{ state.primary_color }}">
+              <p class="margin-y-5px">Färg</p>
+              <input type="color" name="color" value="{{ state.text.color }}">
             </div>
             <div class="six columns centered-content">
-              <p class="margin-y-5px">Sekundär</p>
-              <input type="color" id="secondary_color" name="secondary_color" value="{{ state.secondary_color }}">
+              <p class="margin-y-5px">Text</p>
+              <input type="text" name="text" value="{{ state.text.text }}" class="u-full-width">
             </div>
-          </div>
+          </div>  
           <div class="row">
             <div class="six columns offset-by-six centered-content">
-              <input class="save-button" type="submit" name="Spara" value="Spara">
+              <input class="save-button" type="submit" id="Spara" value="Spara">
             </div>
           </div>
         </form>
       </div>
 
       <div class="row u-full-width border">
-        <form class="container" name="text" method="post">
+        <form class="container" id="waves" method="post">
+          <input type="hidden" name="mode", value="waves">
           <div class="row centered-content">
-            <h3>Text</h3>
+            <h3>Vågor</h3>
           </div>
-          <div class="row u-tmp">
-            <input type="text" name="text" value="{{ state.text }}" class="u-full-width">
+          <div class="row">
+            <div class="six columns centered-content">
+              <p class="margin-y-5px">Färg 1</p>
+              <input type="color" name="color1" value="{{ state.waves.color1 }}">
+            </div>
+            <div class="six columns centered-content">
+              <p class="margin-y-5px">Färg 2</p>
+              <input type="color" name="color2" value="{{ state.waves.color2 }}">
+            </div>
           </div>
           <div class="row">
             <div class="six columns offset-by-six centered-content">
-              <input class="save-button" type="submit" name="Spara" value="Spara">
+              <input class="save-button" type="submit" id="Spara" value="Spara">
             </div>
           </div>
         </form>
       </div>
     </div>
-
     <div class="container">
       <div class="u-pull-right">
         <p>Senaste hearbeat: {{ time }} sekunder</p>
