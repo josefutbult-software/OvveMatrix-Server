@@ -48,6 +48,11 @@ def set_state(form):
             state['waves']['color2'] = form['color2']
             last_data = {'waves': state['waves']}
 
+        elif mode == 'stars':
+            state['stars']['color1'] = form['color1']
+            state['stars']['color2'] = form['color2']
+            last_data = {'stars': state['stars']}
+
         else:
             return
     except:

@@ -1,7 +1,11 @@
 {
+    "stars": {
+        "color1": "#fce94f",
+        "color2": "#000a36"
+    },
     "text": {
         "color": "#ffef00",
-        "text": "Stuff!"
+        "text": "Josef"
     },
     "waves": {
         "color1": "#ff4800",
