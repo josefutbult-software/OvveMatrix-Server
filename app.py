@@ -25,7 +25,7 @@ def pull_data():
 
 
 def format_state(state):
-    state['paint']['pattern'] = ''.join(state['paint']['pattern'])
+    state['paint']['pattern'] = ''.join([instance if instance != "#000000" else "#ffffff" for instance in state['paint']['pattern']])
     return state
 
 
@@ -62,7 +62,7 @@ def set_state(form):
             state['paint']['color'] = form['color']
             pattern = []
             for instance in list(filter(lambda instance: instance != '', form['pattern'].split('#'))):
-                pattern.append(f"#{instance}")
+                pattern.append(f"#{instance}" if instance != "ffffff" else "#000000")
             pattern += ["#ffffff"] * (150 - len(pattern))
             state['paint']['pattern'] = pattern 
             last_data = {'paint': state['paint']}
