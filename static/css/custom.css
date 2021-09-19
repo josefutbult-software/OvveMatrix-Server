@@ -34,3 +34,9 @@
 .save-button {
 	margin-top: 15px;
 }
+
+.cell {
+	border: 1px solid #E1E1E1;
+	padding: 5% 0 0 6.6%;
+	background-color: #FFFFFF;
+}

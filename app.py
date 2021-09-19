@@ -14,7 +14,7 @@ def index():
         set_state(request.form)
 
     return render_template("index.html", 
-        state=get_state(),
+        state=format_state(get_state()),
         time="{:.1f}".format(get_time_since_pull()))
 
 
@@ -22,6 +22,11 @@ def index():
 def pull_data():
     register_pull()
     return last_data
+
+
+def format_state(state):
+    state['paint']['pattern'] = ''.join(state['paint']['pattern'])
+    return state
 
 
 def get_state():
@@ -52,6 +57,15 @@ def set_state(form):
             state['stars']['color1'] = form['color1']
             state['stars']['color2'] = form['color2']
             last_data = {'stars': state['stars']}
+        
+        elif mode == 'paint':
+            state['paint']['color'] = form['color']
+            pattern = []
+            for instance in form['pattern'].split('#'):
+                pattern.append(f"#{instance}")
+            pattern += ["#ffffff"] * (150 - len(pattern))
+            state['paint']['pattern'] = pattern 
+            last_data = {'paint': state['paint']}
 
         else:
             return
