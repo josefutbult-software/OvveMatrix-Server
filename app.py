@@ -61,7 +61,7 @@ def set_state(form):
         elif mode == 'paint':
             state['paint']['color'] = form['color']
             pattern = []
-            for instance in form['pattern'].split('#'):
+            for instance in list(filter(lambda instance: instance != '', form['pattern'].split('#'))):
                 pattern.append(f"#{instance}")
             pattern += ["#ffffff"] * (150 - len(pattern))
             state['paint']['pattern'] = pattern 
